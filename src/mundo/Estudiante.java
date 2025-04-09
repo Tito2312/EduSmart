@@ -1,7 +1,9 @@
 package mundo;
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
-public class Estudiante {
+
+public class Estudiante implements Serializable{
 	private int idEstudiante;
 	private String nombre, grado, correo;
 	private List<Curso> cursos;

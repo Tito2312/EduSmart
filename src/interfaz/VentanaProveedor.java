@@ -13,12 +13,10 @@ public class VentanaProveedor extends JFrame {
     private DefaultTableModel tableModel;
     private JTextField txtIdProveedor, txtNombre, txtDireccion, txtTelefono;
 
-    private List<Proveedor> listaProveedores;
     private InstitucionFacade institucionFacade;
 
     public VentanaProveedor() {
         institucionFacade = new InstitucionFacade("eduSmart");
-        listaProveedores = new ArrayList<>();
 
         setTitle("Gestión de Proveedores");
         setBounds(100, 100, 800, 500);
@@ -107,7 +105,7 @@ public class VentanaProveedor extends JFrame {
             String telefono = txtTelefono.getText();
 
             Proveedor proveedor = new Proveedor(id, nombre, direccion, telefono);
-            institucionFacade.agregarProveedor(listaProveedores, proveedor);
+            institucionFacade.agregarProveedor(institucionFacade.obtenerProveedores(), proveedor);
             actualizarTabla();
             limpiarCampos();
         } catch (Exception ex) {
@@ -123,7 +121,7 @@ public class VentanaProveedor extends JFrame {
             String telefono = txtTelefono.getText();
 
             Proveedor proveedor = new Proveedor(id, nombre, direccion, telefono);
-            institucionFacade.actualizarProveedor(listaProveedores, proveedor);
+            institucionFacade.actualizarProveedor(institucionFacade.obtenerProveedores(), proveedor);
             actualizarTabla();
             limpiarCampos();
         } catch (Exception ex) {
@@ -134,7 +132,7 @@ public class VentanaProveedor extends JFrame {
     private void eliminarProveedor() {
         try {
             int id = Integer.parseInt(txtIdProveedor.getText());
-            institucionFacade.eliminarProveedor(listaProveedores, id);
+            institucionFacade.eliminarProveedor(institucionFacade.obtenerProveedores(), id);
             actualizarTabla();
             limpiarCampos();
         } catch (Exception ex) {
@@ -144,7 +142,7 @@ public class VentanaProveedor extends JFrame {
 
     private void actualizarTabla() {
         tableModel.setRowCount(0);
-        for (Proveedor p : listaProveedores) {
+        for (Proveedor p : institucionFacade.obtenerProveedores()) {
             tableModel.addRow(new Object[]{
                 p.getIdProveedor(),
                 p.getNombre(),

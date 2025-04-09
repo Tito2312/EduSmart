@@ -1,7 +1,9 @@
 package mundo;
 //import java.time.LocalTime;
 
-public class Docente {
+import java.io.Serializable;
+
+public class Docente implements Serializable{
 	private int idDocente;
 	private String nombre, numTelefono, horario;
 	private TipoEspecialidad tipoEspecialidad;

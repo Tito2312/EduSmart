@@ -8,7 +8,7 @@ import mundo.Curso;
 
 public class AlmacenamientoCurso {
 	
-	private File archivo;
+	private  File archivo;
 
     public AlmacenamientoCurso() {
         archivo = new File("Cursos.obj");

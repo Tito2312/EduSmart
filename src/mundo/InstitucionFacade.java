@@ -1,13 +1,26 @@
 package mundo;
 
 import java.util.List;
+import persistencia.*;
 
 public class InstitucionFacade {
 
     private Institucion institucion;
+    private AlmacenamientoCurso almacenamientoCurso;
+    private AlmacenamientoDocente almacenamientoDocente;
+    private AlmacenamientoEstudiante almacenamientoEstudiante;
+    private AlmacenamientoProveedor almacenamientoProveedor;
     
     public InstitucionFacade(String nombreInstitucion) {
         this.institucion = new Institucion(nombreInstitucion);
+        this.almacenamientoCurso = new AlmacenamientoCurso();
+        this.almacenamientoDocente = new AlmacenamientoDocente();
+        this.almacenamientoEstudiante = new AlmacenamientoEstudiante();
+        this.almacenamientoProveedor = new AlmacenamientoProveedor();
+        this.institucion.setCursos(almacenamientoCurso.cargarCursos());
+        this.institucion.setDocentes(almacenamientoDocente.cargarDocente());
+        this.institucion.setEstudiantes(almacenamientoEstudiante.cargarEstudiante());
+        this.institucion.setProveedores(almacenamientoProveedor.cargarProveedor());
     }
 
     public Institucion getInstitucion() {
@@ -21,36 +34,35 @@ public class InstitucionFacade {
     //APLICACION DEL PATRÓN FACADE (CRUD NORMAL CAMBIA LA INTERFAZ)
 
     // CRUD CURSO
-    public void agregarCurso(List<Curso> cursos, Curso curso) {
-        cursos.add(curso);
+    public void agregarCurso(List<Curso> listaCursos, Curso curso) {
+        listaCursos.add(curso);
+        almacenamientoCurso.guardarCursos(listaCursos);
     }
 
-    public Curso obtenerCursoPorId(List<Curso> cursos, int idCurso) {
-        for (Curso curso : cursos) {
-            if (curso.getIdCurso() == idCurso) {
-                return curso;
+    public void actualizarCurso(List<Curso> listaCursos, Curso cursoActualizado) {
+        for (int i = 0; i < listaCursos.size(); i++) {
+            if (listaCursos.get(i).getIdCurso() == cursoActualizado.getIdCurso()) {
+                listaCursos.set(i, cursoActualizado);
+                almacenamientoCurso.guardarCursos(listaCursos);
+                return;
             }
         }
-        return null;
     }
 
-    public boolean actualizarCurso(List<Curso> cursos, Curso cursoActualizado) {
-        for (int i = 0; i < cursos.size(); i++) {
-            if (cursos.get(i).getIdCurso() == cursoActualizado.getIdCurso()) {
-                cursos.set(i, cursoActualizado);
-                return true;
-            }
-        }
-        return false;
+    public void eliminarCurso(List<Curso> listaCursos, int idCurso) {
+        listaCursos.removeIf(curso -> curso.getIdCurso() == idCurso);
+        almacenamientoCurso.guardarCursos(listaCursos);
     }
 
-    public boolean eliminarCurso(List<Curso> cursos, int idCurso) {
-        return cursos.removeIf(curso -> curso.getIdCurso() == idCurso);
+    public List<Curso> getCursos() {
+        return institucion.getCursos();
     }
+    
 
     // CRUD DOCENTE
     public void agregarDocente(List<Docente> docentes, Docente docente) {
         docentes.add(docente);
+        almacenamientoDocente.guardarDocente(docentes);
     }
 
     public Docente obtenerDocentePorId(List<Docente> docentes, int idDocente) {
@@ -61,24 +73,31 @@ public class InstitucionFacade {
         }
         return null;
     }
+    
+    public List<Docente> obtenerDocentes(){
+    	return institucion.getDocentes();
+    }
 
     public boolean actualizarDocente(List<Docente> docentes, Docente docenteActualizado) {
         for (int i = 0; i < docentes.size(); i++) {
             if (docentes.get(i).getIdDocente() == docenteActualizado.getIdDocente()) {
                 docentes.set(i, docenteActualizado);
+                almacenamientoDocente.guardarDocente(docentes);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean eliminarDocente(List<Docente> docentes, int idDocente) {
-        return docentes.removeIf(docente -> docente.getIdDocente() == idDocente);
+    public void eliminarDocente(List<Docente> docentes, int idDocente) {
+        docentes.removeIf(docente -> docente.getIdDocente() == idDocente);
+        almacenamientoDocente.guardarDocente(docentes);
     }
 
     // CRUD ESTUDIANTE
     public void agregarEstudiante(List<Estudiante> estudiantes, Estudiante estudiante) {
         estudiantes.add(estudiante);
+        almacenamientoEstudiante.guardarEstudiante(estudiantes);
     }
 
     public Estudiante obtenerEstudiantePorId(List<Estudiante> estudiantes, int idEstudiante) {
@@ -94,19 +113,26 @@ public class InstitucionFacade {
         for (int i = 0; i < estudiantes.size(); i++) {
             if (estudiantes.get(i).getIdEstudiante() == estudianteActualizado.getIdEstudiante()) {
                 estudiantes.set(i, estudianteActualizado);
+                almacenamientoEstudiante.guardarEstudiante(estudiantes);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean eliminarEstudiante(List<Estudiante> estudiantes, int idEstudiante) {
-        return estudiantes.removeIf(estudiante -> estudiante.getIdEstudiante() == idEstudiante);
+    public void eliminarEstudiante(List<Estudiante> estudiantes, int idEstudiante) {
+        estudiantes.removeIf(estudiante -> estudiante.getIdEstudiante() == idEstudiante);
+        almacenamientoEstudiante.guardarEstudiante(estudiantes);
+    }
+    
+    public List<Estudiante> obtenerEstudiante(){
+    	return institucion.getEstudiantes();
     }
 
     // CRUD PROVEEDOR
     public void agregarProveedor(List<Proveedor> proveedores, Proveedor proveedor) {
         proveedores.add(proveedor);
+        almacenamientoProveedor.guardarProveedor(proveedores);
     }
 
     public Proveedor obtenerProveedorPorId(List<Proveedor> proveedores, int idProveedor) {
@@ -122,14 +148,20 @@ public class InstitucionFacade {
         for (int i = 0; i < proveedores.size(); i++) {
             if (proveedores.get(i).getIdProveedor() == proveedorActualizado.getIdProveedor()) {
                 proveedores.set(i, proveedorActualizado);
+                almacenamientoProveedor.guardarProveedor(proveedores);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean eliminarProveedor(List<Proveedor> proveedores, int idProveedor) {
-        return proveedores.removeIf(proveedor -> proveedor.getIdProveedor() == idProveedor);
+    public void eliminarProveedor(List<Proveedor> proveedores, int idProveedor) {
+        proveedores.removeIf(proveedor -> proveedor.getIdProveedor() == idProveedor);
+        almacenamientoProveedor.guardarProveedor(proveedores);
+    }
+    
+    public List<Proveedor> obtenerProveedores(){
+    	return institucion.getProveedores();
     }
 
     // CRUD RECURSO EDUCATIVO

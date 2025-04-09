@@ -14,12 +14,10 @@ public class VentanaDocente extends JFrame {
     private JTextField txtIdDocente, txtNombreDocente, txtTelefono, txtHorario;
     private JComboBox<TipoEspecialidad> comboTipoEspecialidad;
 
-    private List<Docente> listaDocentes;
     private InstitucionFacade institucionFacade;
 
     public VentanaDocente() {
         institucionFacade = new InstitucionFacade("eduSmart");
-        listaDocentes = new ArrayList<>();
 
         setTitle("Gestión de Docentes");
         setBounds(100, 100, 800, 500);
@@ -128,7 +126,7 @@ public class VentanaDocente extends JFrame {
             if (tipoEspecialidadSeleccionado == null) throw new Exception("Debe seleccionar una especialidad");
 
             Docente docente = new Docente(idDocente, nombreDocente, telefono, horario, tipoEspecialidadSeleccionado);
-            institucionFacade.agregarDocente(listaDocentes, docente);
+            institucionFacade.agregarDocente(institucionFacade.obtenerDocentes(), docente);
             actualizarTabla();
             limpiarCampos();
         } catch (Exception ex) {
@@ -147,7 +145,7 @@ public class VentanaDocente extends JFrame {
             if (tipoEspecialidadSeleccionado == null) throw new Exception("Debe seleccionar una especialidad");
 
             Docente docente = new Docente(idDocente, nombreDocente, telefono, horario, tipoEspecialidadSeleccionado);
-            institucionFacade.actualizarDocente(listaDocentes, docente);
+            institucionFacade.actualizarDocente(institucionFacade.obtenerDocentes(), docente);
             actualizarTabla();
             limpiarCampos();
         } catch (Exception ex) {
@@ -158,7 +156,7 @@ public class VentanaDocente extends JFrame {
     private void eliminarDocente() {
         try {
             int id = Integer.parseInt(txtIdDocente.getText());
-            institucionFacade.eliminarDocente(listaDocentes, id);
+            institucionFacade.eliminarDocente(institucionFacade.obtenerDocentes(), id);
             actualizarTabla();
             limpiarCampos();
         } catch (Exception ex) {
@@ -168,7 +166,7 @@ public class VentanaDocente extends JFrame {
 
     private void actualizarTabla() {
         tableModel.setRowCount(0);
-        for (Docente d : listaDocentes) {
+        for (Docente d : institucionFacade.obtenerDocentes()) {
             tableModel.addRow(new Object[]{
                 d.getIdDocente(),
                 d.getNombre(),

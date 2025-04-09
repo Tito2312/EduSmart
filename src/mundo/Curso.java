@@ -1,8 +1,9 @@
 package mundo;
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Curso {
+public class Curso implements Serializable {
 	private int idCurso;
 	private String nombre, area;
 	private int numHoras;

@@ -9,17 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VentanaCurso extends JFrame {
+	
     private JTable table;
     private DefaultTableModel tableModel;
     private JTextField txtIdCurso, txtNombreCurso, txtArea, txtHoras;
     private JComboBox<Docente> comboDocentes;
 
-    private List<Curso> listaCursos;
+    //private List<Curso> listaCursos;
     private InstitucionFacade institucionFacade;
 
     public VentanaCurso() {
         institucionFacade = new InstitucionFacade("eduSmart");
-        listaCursos = new ArrayList<>();
+        //listaCursos = new ArrayList<>();
 
         setTitle("Gestión de Cursos");
         setBounds(100, 100, 800, 500);
@@ -128,7 +129,7 @@ public class VentanaCurso extends JFrame {
             if (docenteSeleccionado == null) throw new Exception("Debe seleccionar un docente");
 
             Curso curso = new Curso(idCurso, nombreCurso, area, horas, docenteSeleccionado, new ArrayList<>());
-            institucionFacade.agregarCurso(listaCursos, curso);
+            institucionFacade.agregarCurso(institucionFacade.getCursos(), curso);
             actualizarTabla();
             limpiarCampos();
         } catch (Exception ex) {
@@ -147,7 +148,7 @@ public class VentanaCurso extends JFrame {
             if (docenteSeleccionado == null) throw new Exception("Debe seleccionar un docente");
 
             Curso curso = new Curso(idCurso, nombreCurso, area, horas, docenteSeleccionado, new ArrayList<>());
-            institucionFacade.actualizarCurso(listaCursos, curso);
+            institucionFacade.actualizarCurso(institucionFacade.getCursos(),curso);
             actualizarTabla();
             limpiarCampos();
         } catch (Exception ex) {
@@ -158,7 +159,7 @@ public class VentanaCurso extends JFrame {
     private void eliminarCurso() {
         try {
             int id = Integer.parseInt(txtIdCurso.getText());
-            institucionFacade.eliminarCurso(listaCursos, id);
+            institucionFacade.eliminarCurso(institucionFacade.getCursos(),id);
             actualizarTabla();
             limpiarCampos();
         } catch (Exception ex) {
@@ -168,7 +169,7 @@ public class VentanaCurso extends JFrame {
 
     private void actualizarTabla() {
         tableModel.setRowCount(0);
-        for (Curso c : listaCursos) {
+        for (Curso c : institucionFacade.getCursos()) {
             tableModel.addRow(new Object[]{
                 c.getIdCurso(),
                 c.getNombre(),
