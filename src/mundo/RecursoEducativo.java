@@ -4,9 +4,8 @@ public class RecursoEducativo {
 	private String nombre,fecha;
 	private Tipo tipo;
 	private TipoEstado tipoEstado;
-	
+
 	public RecursoEducativo(int idRecurso, String nombre, String fecha, Tipo tipo, TipoEstado tipoEstado) {
-		super();
 		this.idRecurso = idRecurso;
 		this.nombre = nombre;
 		this.fecha = fecha;
@@ -53,8 +52,7 @@ public class RecursoEducativo {
 	public void setTipoEstado(TipoEstado tipoEstado) {
 		this.tipoEstado = tipoEstado;
 	}
-	
-	@Override
+
 	public String toString() {
 		return "RecursoEducativo [idRecurso=" + idRecurso + ", nombre=" + nombre + ", fecha=" + fecha + "]";
 	}

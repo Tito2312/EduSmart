@@ -1,7 +1,7 @@
 package mundo;
 
 public class Producto {
-	
+
 	private String nombre;
 	private int idProducto;
 

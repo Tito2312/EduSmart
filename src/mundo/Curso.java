@@ -1,6 +1,7 @@
 package mundo;
 import java.util.List;
 import java.util.ArrayList;
+
 public class Curso {
 	private int idCurso;
 	private String nombre, area;
@@ -8,8 +9,7 @@ public class Curso {
 	private Docente docente;
 	private List<Estudiante> estudiantes;
 	
-	public Curso(int idCurso, String nombre, String area, int numHoras, Docente docente) {
-
+	public Curso(int idCurso, String nombre, String area, int numHoras, Docente docente, List<Estudiante> estudiantes) {
 		this.idCurso = idCurso;
 		this.nombre = nombre;
 		this.area = area;
@@ -70,7 +70,6 @@ public class Curso {
 		estudiantes.add(estudiante);
 	}
 	
-	@Override
 	public String toString() {
 		return "Curso [idCurso=" + idCurso + ", nombre=" + nombre + ", area=" + area + ", numHoras=" + numHoras
 				+ ", docente=" + docente + ", estudiantes=" + estudiantes + "]";

@@ -7,7 +7,7 @@ public class Docente {
 	private TipoEspecialidad tipoEspecialidad;
 	
 	public Docente(int idDocente, String nombre, String numTelefono, String horario,TipoEspecialidad tipoEspecialidad) {
-		
+
 		this.idDocente = idDocente;
 		this.nombre = nombre;
 		this.numTelefono = numTelefono;
@@ -55,7 +55,6 @@ public class Docente {
 		this.tipoEspecialidad = tipoEspecialidad;
 	}
 	
-	@Override
 	public String toString() {
 		return "Docente [idDocente=" + idDocente + ", nombre=" + nombre + ", numTelefono=" + numTelefono + ", horario="
 				+ horario + "]";

@@ -2,16 +2,25 @@ package mundo;
 import java.util.List;
 import java.util.ArrayList;
 public class Institucion {
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 762d7fd28bf513f9016848a84d43e2f9406c3dd7
 	private String nombre;
 	private List<Curso> cursos = new ArrayList<>();
 	private List<Estudiante> estudiantes = new ArrayList<>();
 	private List<Docente> docentes = new ArrayList<>();
 	private List<RecursoEducativo> recursos = new ArrayList<>();
 	private List<Proveedor> proveedores = new ArrayList<>();
+<<<<<<< HEAD
 	
 	//GETTERS Y SETTER
 	public Institucion(String nombre) {
+=======
+	//GETTERS Y SETTER
+	public Institucion(String nombre) {
+		super();
+>>>>>>> 762d7fd28bf513f9016848a84d43e2f9406c3dd7
 		this.nombre = nombre;
 	}
 
